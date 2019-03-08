@@ -21,3 +21,14 @@ Route.get('/', () => {
 })
 
 Route.post('/create', "UserController.createUser")
+
+//Chatkit
+Route.post('chatCreateUser', 'MessageController.createUser')
+Route.get('chatGetUsers', 'MessageController.getUsers')
+Route.post('chatGetUser', 'MessageController.getUser')
+Route.post('chatDeleteUser', 'MessageController.deleteUser')
+
+Route.post('chatCreateRoom', 'MessageController.createRoom')
+Route.post('chatGetRoom', 'MessageController.getRoom')
+Route.post('chatSendMessage', 'MessageController.sendMessage')
+Route.post('chatgetMessages', 'MessageController.getMessages')
