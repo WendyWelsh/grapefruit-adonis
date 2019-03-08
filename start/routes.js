@@ -20,4 +20,8 @@ Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
 
+Route.get('/user', "UserController.getUser")
+
 Route.post('/create', "UserController.createUser")
+
+Route.delete('/delete/:id', "UserController.deleteUser")
