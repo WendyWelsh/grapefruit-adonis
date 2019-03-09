@@ -2,6 +2,13 @@
 const User = use('App/Models/User')
 
 class UserController {
+
+    async getUser({ request, response }) {
+        let users = await User.all()
+        response.send({
+            users: users
+        })
+    }
     
     async createUser({request, auth, response}) {
         const {username, email, password} = request.post()
@@ -14,17 +21,14 @@ class UserController {
         })
     }
 
-    async deleteUser({ request, response, auth }) {
-        try {
-            let deleteUserById = await auth.getUser()
-           
-            await deleteUserById.delete()
-            response.json({
-                Message: "Time for Mickey D's"
-            })
-        } catch (e) {
-            response.send('Invalid token' + e)
-        }
+    async deleteUser({ request, response, params: { id } }) {
+        var deleteUserById = await User.find(id)
+        await deleteUserById.delete()
+        let users = await User.all()
+        response.json({
+            Message: "Time for Mickey D's!",
+            users: users
+        })
     }
 
 }
