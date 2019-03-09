@@ -28,7 +28,7 @@ Route.delete('/delete/:id', "UserController.deleteUser")
 
 //Chatkit
 Route.post('chatCreateUser', 'MessageController.createUser')
-Route.get('chatGetUsers', 'MessageController.getUsers')
+Route.get('chatGetUsers', 'MessageController.getUsers') 
 Route.post('chatGetUser', 'MessageController.getUser')
 Route.post('chatDeleteUser', 'MessageController.deleteUser')
 
