@@ -7,6 +7,19 @@ const Model = use('Model')
 const Hash = use('Hash')
 
 class User extends Model {
+
+  role () {
+    return this.hasOne('App/Models/Role')
+  }
+
+  macro () {
+    return this.hasMany('App/Models/Macro')
+  }
+
+  workout () {
+    return this.hasMany('App/Models/Workout')
+  }
+
   static boot () {
     super.boot()
 
