@@ -1,11 +1,4 @@
 'use strict'
-//Needs worked on...
-//calling change handler from props seems to be slower
-//need to get user and inspector from redux
-//need to verify that createroom is working from postman then make it work here
-//need to finish theme
-
-
 
 const Chatkit = require('@pusher/chatkit-server');
 const Env = use('Env');
@@ -17,137 +10,78 @@ const chatkit = new Chatkit.default({
 
 ///note changed cors.js origin to true from false to allow messages to other sites
 class MessageController {
-    async createUser({ request, response }) {
-        const user_id = request.input('user_id');
-        const user_name = request.input('user_name');
-        return chatkit.createUser({
-            id: user_id,
-            name: user_name,
-        })
-            .then((user) => {
-                return response.send(user)
-            }).catch((err) => {
-                return response.send({ "message": 'user already exists' });
-            });
-    }
 
-    async getUser({ request, response }) {
-        const user_id = request.input('user_id');
-        return chatkit.getUser({
-            id: user_id,
-        })
-            .then(user => {
-                return response.send(user)
-            })
-            .catch(err => {
-                return response.send(err)
-            })
-    }
-
-    async deleteUser({ request, response }) {
-        const user_id = request.input('user_id')
-        return chatkit.deleteUser({ userId: user_id })
-            .then(() => {
-                return response.send({ message: 'deleted successfully' });
-            }).catch(() => {
-                return response.send({ message: 'unable to delete' });
-            });
-    }
-
+//Function for creating the users and a room for them and returning the room number
+//If a user already exists we skip it
+//If a room already exists we return the room number
     async createRoom({ request, response }) {
-        const user_id = request.input('user_id')
-        const inspector_id = request.input('inspector_id')
-        const room_name = user_id + ' and ' + inspector_id
-        // this calls event.js
-        // Event.emit('send::notification', {message:request.input('message'),user_id:id,inspector_id:inspector_id})
-        // return response.send(message)
+        const user_id = request.input('user_id');
+        const inspector_id = request.input('inspector_id');
+        const room_name = user_id + ' and ' + inspector_id;
 
+        //Check to see if user1 already exists
         let user1Exists = await chatkit.getUser({ id: user_id })
-            .then((res) => {
-                console.log('User1 Exists')
+            .then(() => {
                 return true;
-            }).catch((e) => {
-                console.log('User1 Does Not Exist')
+            }).catch(() => {
                 return false;
             })
-
+        //Create User one if it doesnt exist
         if (!user1Exists) {
             await chatkit.createUser({ id: user_id, name: user_id })
-                .then(() => {
-                    console.log('User1 Created')
-                }
-                ).catch(() => {
-                    console.log('User1 Failed Creation')
-                }
-                )
         }
 
+        //Check to see if user 2 exists
         let user2Exists = await chatkit.getUser({ id: inspector_id })
-            .then((res) => {
-                console.log('User2 Exists')
+            .then(() => {
                 return true;
-            }).catch((e) => {
-                console.log('User2 Does Not Exist')
+            }).catch(() => {
                 return false;
             })
-
+        //if user 2 doesnt exist then create it
         if (!user2Exists) {
             await chatkit.createUser({ id: inspector_id, name: inspector_id })
-                .then(() => {
-                    console.log('User2 Created')
-                }
-                ).catch((e) => {
-                    console.log(e)
-                    console.log('User2 Failed Creation')
-                }
-                )
         }
 
-
-
+        //grab all the rooms that exist for user 1
         let user1Rooms = await chatkit.getUserRooms({ userId: user_id })
             .then((res) => {
                 if (res.length) {
-                    console.log("Room Exist")
                     return res;
                 } else {
-                    console.log("Room Doesnt Exists")
                     return [];
                 }
             })
             .catch(() => {
-                console.log("User 1 Room Check failed")
-                return false;
+                return [];
             })
+        //grab all the rooms that exist for user 2
         let user2Rooms = await chatkit.getUserRooms({ userId: inspector_id })
             .then((res) => {
                 if (res.length) {
-                    console.log("Room Exist")
                     return res;
                 } else {
-                    console.log("Room Doesnt Exists")
                     return [];
                 }
             })
             .catch(() => {
-                console.log("User 1 Room Check failed")
-                return false;
+                return [];
             })
 
-        let roomExists=false;
-        for(let i =0; i<user1Rooms.length;i++){
-            for(let j=0; j<user2Rooms.length;j++){
-                if(user1Rooms[i].id===user2Rooms[j].id){
+        //compare the sets of rooms see if one exists that contains both users 
+        //if so send its id back   
+        let roomExists = false;
+        for (let i = 0; i < user1Rooms.length; i++) {
+            for (let j = 0; j < user2Rooms.length; j++) {
+                if (user1Rooms[i].id === user2Rooms[j].id) {
                     roomExists = true;
-                    console.log('Matching Room Found')
-                    break;
+                    return response.send(user1Rooms[i].id);
                 }
             }
         }
 
+        //if a room that contains both users does not exist create one
         if (!roomExists) {
-            //create room
-            console.log("Creating Room")
             return chatkit.createRoom({
                 creatorId: user_id,
                 name: room_name,
@@ -156,58 +90,27 @@ class MessageController {
                 isPrivate: true
             })
                 .then((room) => {
-                    console.log("Room Created")
-                    return response.send(room);
+                    return response.send(room.id);
                 }).catch((err) => {
-                    console.log("Room Failed")
                     return response.send(err);
                 });
-        }else{
-            console.log('Room Exists')
         }
-
     }
 
-    //multidirectional. users can send to inspectors and inspectors can send to users
-    async sendMessage({ request, response }) {
-        // console.log(request)
+//Function to send a message to a room
+    async sendMessage({ request }) {
         const sender_id = request.input('sender_id')
-        const reciever_id = request.input('reciever_id')
+        const room_id = request.input('room_id')
         const message = request.input('message')
-        //grab the room the pair share
-        const room_id = await chatkit.getUserRooms({ userId: sender_id, userId: reciever_id })
-            .then((res) => {//should only return one room
-                return (res[0].id);//send message to that first room
-            })
-            .catch(err => console.error(err))
-
-        return chatkit.sendMessage({
+        
+        await chatkit.sendMessage({
             userId: sender_id,
             roomId: room_id,
             text: message,
-        })
-            .then(res => {
-                return response.send(res.message_id)
-            })
-            .catch(err => {
-                return response.send(err)
-            })
+          })
+            .then(res => console.log('sent message with id', res.id))
+            .catch(err => console.error(err))
     }
-
-    // async getMessages({ request, response }) {
-    //     const roomId = request.input('room_id')
-
-    //     return chatkit.getRoomMessages({
-    //         roomId: roomId,
-    //         direction: "newer",// old at top new at bottom
-    //         limit: 10,
-    //     })
-    //         .then(messages => {
-    //             return response.send(messages)
-    //         })
-    //         .catch(err => response.send(err))
-
-    // }
 
 }
 
