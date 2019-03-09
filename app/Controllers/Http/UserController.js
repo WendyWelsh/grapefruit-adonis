@@ -11,9 +11,9 @@ class UserController {
     }
     
     async createUser({request, auth, response}) {
-        const {username, email, password} = request.post()
-        const user = await User.create({username, email, password})
-        const token = await auth.generate(user)
+        const {username, email, password, role} = request.post();
+        const user = await User.create({username, email, password, role_id:parseInt(role)});
+        const token = await auth.generate(user);
         console.log(user)
         response.json({
             message: '${user.username} added to the database', 
