@@ -21,6 +21,7 @@ Route.get('/', () => {
 })
 
 Route.get('/user', "UserController.getUser")
+Route.post('/login', "UserController.login")
 
 Route.post('/create', "UserController.createUser")
 
