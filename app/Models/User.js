@@ -17,7 +17,7 @@ class User extends Model {
 
   }
   coachAssignment() {
-    return this.hasMany('App/Models/Assignment')
+    return this.hasMany('App/Models/Assignment',"id","coach_id")
 
   }
 
