@@ -2,7 +2,7 @@
 const User = use("App/Models/User");
 
 class UserController {
-    
+
   async getUser({ request, response }) {
     let users = await User.all();
     response.send({
@@ -16,10 +16,22 @@ class UserController {
         .withRefreshToken()
         .attempt(request.input("email"), request.input("password"));
       // return response.redirect('/home')
-      return response.json({
-        status: "success!",
-        data: token
-      });
+      try{
+          console.log('heyhey')
+        const user = await User.findBy('email', request.input('email'))
+        console.log(user)
+        return response.json({
+            status: "success!",
+            data: token,
+            role: user.role_id
+          });
+      }
+      catch (error) {response.status(400).json({
+          status: "error!",
+          data: "user not found."
+      })}
+    //   console.log(user)
+      
     } catch (error) {
       response.status(400).json({
         status: "error",
