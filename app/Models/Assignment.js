@@ -5,7 +5,7 @@ const Model = use('Model')
 
 class Assignment extends Model {
     client() {
-        return this.belongsTo('App/Models/User')
+        return this.belongsTo('App/Models/User', 'client_id', 'id')
 
     }
     coach() {

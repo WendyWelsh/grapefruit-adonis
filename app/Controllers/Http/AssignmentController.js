@@ -6,7 +6,7 @@ class AssignmentController {
         try {
             const user = await auth.getUser()
             try {
-                const clients = await user.coachAssignment().fetch()
+                const clients = await user.coachAssignment().with('client').fetch()
                 return response.json({
                     status: "success!",
                      data: clients        
