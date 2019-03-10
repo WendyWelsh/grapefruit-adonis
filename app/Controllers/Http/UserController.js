@@ -52,7 +52,8 @@ class UserController {
     console.log(user);
     response.json({
       message: "${user.username} added to the database",
-      data: token
+      data: token,
+      role: user.role_id
     });
   }
 

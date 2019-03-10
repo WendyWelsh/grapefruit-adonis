@@ -8,19 +8,28 @@ const Hash = use('Hash')
 
 class User extends Model {
 
-  role () {
+  role() {
     return this.hasOne('App/Models/Role')
   }
 
-  macro () {
+  clientAssignment() {
+    return this.hasOne('App/Models/Assignment')
+
+  }
+  coachAssignment() {
+    return this.hasMany('App/Models/Assignment',"id","coach_id")
+
+  }
+
+  macro() {
     return this.hasMany('App/Models/Macro')
   }
 
-  workout () {
+  workout() {
     return this.hasMany('App/Models/Workout')
   }
 
-  static boot () {
+  static boot() {
     super.boot()
 
     /**
@@ -44,7 +53,7 @@ class User extends Model {
    *
    * @return {Object}
    */
-  tokens () {
+  tokens() {
     return this.hasMany('App/Models/Token')
   }
 }

@@ -27,6 +27,9 @@ Route.post('/create', "UserController.createUser")
 
 Route.delete('/delete/:id', "UserController.deleteUser")
 
+//Coaches
+Route.get('/coach/clients', "AssignmentController.getClients").middleware(['auth'])
+
 //Chatkit
 Route.post('chatCreateUser', 'MessageController.createUser')
 Route.get('chatGetUsers', 'MessageController.getUsers')
