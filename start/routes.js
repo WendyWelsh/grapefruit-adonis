@@ -21,10 +21,16 @@ Route.get('/', () => {
 })
 
 Route.get('/user', "UserController.getUser")
+Route.post('/login', "UserController.login")
 
 Route.post('/create', "UserController.createUser")
 
 Route.delete('/delete/:id', "UserController.deleteUser")
+
+//Coaches
+Route.get('/coach/clients', "AssignmentController.getClients").middleware(['auth'])
+Route.get('/coach/clients/:id', "AssignmentController.getOneClient").middleware(['auth'])
+
 
 //Chatkit
 Route.post('chatCreateUser', 'MessageController.createUser')
