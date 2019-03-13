@@ -7,7 +7,7 @@ class AddRoleIdToUsersSchema extends Schema {
   up () {
     this.table('users', (table) => {
       table.integer("role_id").unsigned().after('password')
-      table.foreign("role_id").references('users.id')
+      table.foreign("role_id").references('id').inTable("roles")
     })
   }
 
