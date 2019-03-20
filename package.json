@@ -8,10 +8,6 @@
     "start": "ENV_SILENT=true node server.js",
     "migrate": "ENV_SILENT=true node ace migration:run --force"
   },
-  // "scripts": {
-  //   "start": "node server.js",
-  //   "test": "node ace test"
-  // },
   "keywords": [
     "adonisjs",
     "adonis-app"
