@@ -31,7 +31,6 @@ Route.delete('/delete/:id', "UserController.deleteUser")
 Route.get('/coach/clients', "AssignmentController.getClients").middleware(['auth'])
 Route.get('/coach/clients/:id', "AssignmentController.getOneClient").middleware(['auth'])
 Route.post('/coach/clients/:id/workout', "WorkoutController.storeWorkout").middleware(['auth'])
-Route.post('/coach/clients/workout', "WorkoutController.createWorkout")
 
 
 //Chatkit
