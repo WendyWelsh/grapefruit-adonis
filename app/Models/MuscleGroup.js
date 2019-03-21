@@ -6,7 +6,7 @@ const Model = use('Model')
 class MuscleGroup extends Model {
 
     workout () {
-        return this.belongsToMany('App/Models/Workout')
+        return this.belongsTo('App/Models/Workout')
       }
 
 }
