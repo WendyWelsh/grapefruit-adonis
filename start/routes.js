@@ -30,15 +30,10 @@ Route.delete('/delete/:id', "UserController.deleteUser")
 //Coaches
 Route.get('/coach/clients', "AssignmentController.getClients").middleware(['auth'])
 Route.get('/coach/clients/:id', "AssignmentController.getOneClient").middleware(['auth'])
+Route.post('/coach/clients/:id/workout', "WorkoutController.storeWorkout").middleware(['auth'])
 
 
 //Chatkit
-Route.post('chatCreateUser', 'MessageController.createUser')
-Route.get('chatGetUsers', 'MessageController.getUsers') 
-Route.post('chatGetUser', 'MessageController.getUser')
-Route.post('chatDeleteUser', 'MessageController.deleteUser')
-
 Route.post('chatCreateRoom', 'MessageController.createRoom')
-Route.post('chatGetRoom', 'MessageController.getRoom')
+Route.post('chatGetRoom', 'MessageController.getUserRooms')
 Route.post('chatSendMessage', 'MessageController.sendMessage')
-Route.post('chatgetMessages', 'MessageController.getMessages')
