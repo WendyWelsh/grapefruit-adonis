@@ -35,12 +35,6 @@ Route.post('/coach/clients/workout', "WorkoutController.createWorkout")
 
 
 //Chatkit
-Route.post('chatCreateUser', 'MessageController.createUser')
-Route.get('chatGetUsers', 'MessageController.getUsers')
-Route.post('chatGetUser', 'MessageController.getUser')
-Route.post('chatDeleteUser', 'MessageController.deleteUser')
-
 Route.post('chatCreateRoom', 'MessageController.createRoom')
-Route.post('chatGetRoom', 'MessageController.getRoom')
+Route.post('chatGetRoom', 'MessageController.getUserRooms')
 Route.post('chatSendMessage', 'MessageController.sendMessage')
-Route.post('chatgetMessages', 'MessageController.getMessages')
