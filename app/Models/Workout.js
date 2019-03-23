@@ -9,8 +9,8 @@ class Workout extends Model {
         return this.belongsToMany('App/Models/User')
       }
 
-    exercise () {
-        return this.hasMany('App/Models/exercise')
+    exercises () {
+        return this.hasMany('App/Models/Exercise')
     }
 
 }

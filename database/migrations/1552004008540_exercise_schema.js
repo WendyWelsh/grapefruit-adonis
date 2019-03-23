@@ -10,7 +10,7 @@ class ExerciseSchema extends Schema {
       table.integer('workout_id').unsigned()
       table.foreign('workout_id')//.references('workouts.id')
       table.integer('sets')
-      table.integer('repititions')
+      table.integer('repetitions')
       table.integer('rpe')
       table.string('muscle_group')
       table.timestamps()
