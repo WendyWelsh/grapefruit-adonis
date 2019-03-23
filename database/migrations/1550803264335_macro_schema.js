@@ -8,9 +8,9 @@ class MacroSchema extends Schema {
     this.create('macros', (table) => {
       table.increments()
       table.integer('coach_id').unsigned()
-      table.foreign('coach_id').references('users.id')
+      table.foreign('coach_id')//.references('users.id')
       table.integer('client_id').unsigned()
-      table.foreign('client_id').references('users.id')
+      table.foreign('client_id')//.references('users.id')
       table.integer('protein')
       table.integer('carbohydrates')
       table.integer('fats')

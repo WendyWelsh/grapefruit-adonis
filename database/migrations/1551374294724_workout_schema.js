@@ -7,8 +7,8 @@ class WorkoutSchema extends Schema {
   up () {
     this.create('workouts', (table) => {
       table.increments()
-      table.integer('client_id').unsigned().references('id').inTable('users')
-      table.integer('coach_id').unsigned().references('id').inTable('users')
+      table.integer('client_id').unsigned()//.references('id').inTable('users')
+      table.integer('coach_id').unsigned()//.references('id').inTable('users')
       table.date('date')
       table.timestamps()
     })
