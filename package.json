@@ -25,13 +25,14 @@
     "@adonisjs/ignitor": "^2.0.8",
     "@adonisjs/lucid": "^6.1.3",
     "@pusher/chatkit-server": "^1.0.6",
-    "mysql": "^2.16.0"
+    "mysql": "^2.16.0",
+    "url-parse": "^1.4.4"
   },
   "devDependencies": {},
   "autoload": {
     "App": "./app"
   },
   "engines": {
-    "node": "8.5.0"
-  } 
+    "node": "8.15.1"
+  }
 }
