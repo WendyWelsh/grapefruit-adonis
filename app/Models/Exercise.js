@@ -3,7 +3,7 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
 
-class MuscleGroup extends Model {
+class Exercise extends Model {
 
     workout () {
         return this.belongsTo('App/Models/Workout')
@@ -11,4 +11,4 @@ class MuscleGroup extends Model {
 
 }
 
-module.exports = MuscleGroup
+module.exports = Exercise

@@ -7,8 +7,8 @@ class AssignmentsSchema extends Schema {
   up () {
     this.create('assignments', (table) => {
       table.increments()
-      table.integer('client_id').unsigned().references('id').inTable('users')
-      table.integer('coach_id').unsigned().references('id').inTable('users')
+      table.integer('client_id').unsigned()//.references('id').inTable('users')
+      table.integer('coach_id').unsigned()//.references('id').inTable('users')
       table.timestamps()
     })
   }

@@ -30,7 +30,11 @@ Route.delete('/delete/:id', "UserController.deleteUser")
 //Coaches
 Route.get('/coach/clients', "AssignmentController.getClients").middleware(['auth'])
 Route.get('/coach/clients/:id', "AssignmentController.getOneClient").middleware(['auth'])
-Route.post('/coach/clients/:id/workout', "WorkoutController.storeWorkout").middleware(['auth'])
+Route.post('/workouts', "WorkoutController.storeWorkout")//.middleware(['auth'])
+Route.get('/workouts', "WorkoutController.fetchWorkout")//.middleware(['auth'])
+
+Route.post('/macros', "MacroController.storeMacro")//.middleware(['auth'])
+Route.get('/macros', "MacroController.fetchMacro")//.middleware(['auth'])
 
 
 //Chatkit

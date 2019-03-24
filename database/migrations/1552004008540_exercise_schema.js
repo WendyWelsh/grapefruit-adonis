@@ -3,14 +3,14 @@
 /** @type {import('@adonisjs/lucid/src/Schema')} */
 const Schema = use('Schema')
 
-class MuscleGroupSchema extends Schema {
+class ExerciseSchema extends Schema {
   up () {
-    this.create('muscle_groups', (table) => {
+    this.create('exercises', (table) => {
       table.increments()
       table.integer('workout_id').unsigned()
-      table.foreign('workout_id').references('workouts.id')
+      table.foreign('workout_id')//.references('workouts.id')
       table.integer('sets')
-      table.integer('repititions')
+      table.integer('repetitions')
       table.integer('rpe')
       table.string('muscle_group')
       table.timestamps()
@@ -18,8 +18,8 @@ class MuscleGroupSchema extends Schema {
   }
 
   down () {
-    this.drop('muscle_groups')
+    this.drop('exercises')
   }
 }
 
-module.exports = MuscleGroupSchema
+module.exports = ExerciseSchema
