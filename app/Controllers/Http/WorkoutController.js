@@ -13,7 +13,7 @@ class WorkoutController {
           date
         });
        
-        // const exercises = await workout.exercises().fetch()
+       
         const mappedExercises = exercises.map(exercise=>{
           return{
             repititions: exercise.reps,

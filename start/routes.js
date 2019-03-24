@@ -33,6 +33,8 @@ Route.get('/coach/clients/:id', "AssignmentController.getOneClient").middleware(
 Route.post('/workouts', "WorkoutController.storeWorkout")//.middleware(['auth'])
 Route.get('/workouts', "WorkoutController.fetchWorkout")//.middleware(['auth'])
 
+Route.post('/macros', "MacroController.storeMacro")//.middleware(['auth'])
+Route.get('/macros', "MacroController.fetchMacro")//.middleware(['auth'])
 
 
 //Chatkit
