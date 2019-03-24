@@ -26,6 +26,11 @@ class MacroController {
         });
 
     }
+    async fetchMacro({auth}) {
+        let user = await auth.getUser()
+        const macros = await Macro.query().where('client_id', user.id).fetch()
+        return macros
+      }
 }
 
 module.exports = MacroController
