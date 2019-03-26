@@ -16,7 +16,7 @@ class WorkoutController {
        
         const mappedExercises = exercises.map(exercise=>{
           return{
-            repititions: exercise.reps,
+            repetitions: exercise.reps,
             rpe: exercise.rpe,
             sets: exercise.sets,
             muscle_group: exercise.muscleGroup,

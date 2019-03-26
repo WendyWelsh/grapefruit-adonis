@@ -8,10 +8,6 @@ const Hash = use('Hash')
 
 class User extends Model {
 
-  role() {
-    return this.hasOne('App/Models/Role')
-  }
-
   clientAssignment() {
     return this.hasOne('App/Models/Assignment')
 
