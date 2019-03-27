@@ -39,5 +39,4 @@ Route.get('/macros', "MacroController.fetchMacro")//.middleware(['auth'])
 
 //Chatkit
 Route.post('chatCreateRoom', 'MessageController.createRoom')
-Route.post('chatGetRoom', 'MessageController.getUserRooms')
 Route.post('chatSendMessage', 'MessageController.sendMessage')

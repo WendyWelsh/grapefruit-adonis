@@ -13,7 +13,7 @@ class ExercisesSchema extends Schema {
 
   down () {
     this.table('exercises', (table) => {
-      table.drop("name")
+      table.dropColumn("name")
       // reverse alternations
     })
   }

@@ -16,7 +16,9 @@ module.exports = {
   | Function - Receives the current origin and should return one of the above values.
   |
   */
-  origin: false,
+  origin: function (origin) {
+    return origin === "http://grapefruit-bucket.s3-website-us-west-2.amazonaws.com" || origin === "localhost:3000"
+  },
 
   /*
   |--------------------------------------------------------------------------
